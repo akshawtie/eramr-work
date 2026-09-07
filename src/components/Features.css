@@ -1,0 +1,34 @@
+@reference "../index.css";
+.feat-section {
+  @apply py-24 bg-muted;
+}
+.feat-container {
+  @apply container mx-auto px-6;
+}
+.feat-header {
+  @apply text-center max-w-2xl mx-auto mb-16;
+}
+.feat-title {
+  @apply text-3xl md:text-4xl mb-4 text-primary font-serif;
+}
+.feat-subtitle {
+  @apply text-muted-foreground;
+}
+.feat-grid {
+  @apply grid md:grid-cols-3 gap-12;
+}
+.feat-card {
+  @apply flex flex-col items-center text-center;
+}
+.feat-icon-wrapper {
+  @apply w-16 h-16 rounded-full bg-background flex items-center justify-center mb-6 text-accent shadow-sm;
+}
+.feat-icon {
+  @apply w-8 h-8;
+}
+.feat-card-title {
+  @apply text-xl font-serif mb-3 text-primary;
+}
+.feat-card-desc {
+  @apply text-muted-foreground leading-relaxed;
+}
