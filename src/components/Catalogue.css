@@ -13,7 +13,7 @@
 }
 
 .catalogue-title {
-  @apply text-3xl sm:text-4xl lg:text-5xl font-semibold text-primary tracking-tighter mb-4;
+  @apply text-3xl sm:text-4xl lg:text-5xl font-serif text-primary mb-4;
 }
 
 .catalogue-subtitle {
@@ -105,13 +105,7 @@
   @apply w-full h-full object-cover transition-transform duration-500 group-hover:scale-105;
 }
 
-.product-badge-tag {
-  @apply absolute top-2 left-2 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider bg-background text-foreground rounded border border-border;
-}
 
-.product-quick-add {
-  @apply absolute bottom-2 left-2 right-2 py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2;
-}
 
 .product-details {
   @apply flex flex-col;
@@ -122,20 +116,10 @@
 }
 
 .product-name {
-  @apply text-sm text-primary font-medium mb-1 line-clamp-1 group-hover:underline;
+  @apply text-lg font-serif text-primary mb-1 line-clamp-1 group-hover:text-accent transition-colors;
 }
 
-.product-price-row {
-  @apply flex items-baseline gap-2 mt-1;
-}
 
-.product-price {
-  @apply text-sm font-semibold text-foreground;
-}
-
-.product-original-price {
-  @apply text-xs text-muted-foreground line-through;
-}
 
 .pagination-wrapper {
   @apply flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border;

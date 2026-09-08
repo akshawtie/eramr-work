@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Menu, ShoppingBag, Search, User } from 'lucide-react';
+import { Menu, Search, User } from 'lucide-react';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -31,10 +31,6 @@ export default function Navbar() {
         <div className="navbar-menu-group">
           <button aria-label="Account" className="navbar-icon-btn">
             <User className="w-5 h-5" />
-          </button>
-          <button aria-label="Cart" className="navbar-btn">
-            <ShoppingBag className="w-5 h-5" />
-            <span className="hidden md:inline">Cart (0)</span>
           </button>
         </div>
       </div>

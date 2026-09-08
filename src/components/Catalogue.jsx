@@ -5,14 +5,23 @@ import {
   X, 
   SlidersHorizontal, 
   ChevronLeft, 
-  ChevronRight, 
-  ShoppingBag, 
+  ChevronRight,
   Check
 } from 'lucide-react';
 import { CATEGORIES, products } from '../data/products';
 import './Catalogue.css';
 
 const ITEMS_PER_PAGE = 25;
+
+const reducedProducts = [];
+const tempCatCounts = {};
+for (const p of products) {
+  if (!tempCatCounts[p.category]) tempCatCounts[p.category] = 0;
+  if (tempCatCounts[p.category] < 4) {
+    reducedProducts.push(p);
+    tempCatCounts[p.category]++;
+  }
+}
 
 export default function Catalogue() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -27,8 +36,8 @@ export default function Catalogue() {
 
   // Compute category counts
   const categoryCounts = useMemo(() => {
-    const counts = { all: products.length };
-    products.forEach((p) => {
+    const counts = { all: reducedProducts.length };
+    reducedProducts.forEach((p) => {
       counts[p.category] = (counts[p.category] || 0) + 1;
     });
     return counts;
@@ -36,7 +45,7 @@ export default function Catalogue() {
 
   // Filter & sort products
   const filteredProducts = useMemo(() => {
-    let list = products.filter((item) => {
+    let list = reducedProducts.filter((item) => {
       const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
       const q = searchQuery.trim().toLowerCase();
       const matchesSearch = 
@@ -49,11 +58,7 @@ export default function Catalogue() {
       return matchesCategory && matchesSearch;
     });
 
-    if (sortBy === 'price-asc') {
-      list.sort((a, b) => a.price - b.price);
-    } else if (sortBy === 'price-desc') {
-      list.sort((a, b) => b.price - a.price);
-    } else if (sortBy === 'rating') {
+    if (sortBy === 'rating') {
       list.sort((a, b) => b.rating - a.rating || b.reviewsCount - a.reviewsCount);
     }
 
@@ -107,7 +112,7 @@ export default function Catalogue() {
         <div className="catalogue-header">
           <h2 className="catalogue-title">Catalogue</h2>
           <p className="catalogue-subtitle">
-            Explore {products.length} minimalist pieces designed for modern spaces.
+            Explore {reducedProducts.length} curated pieces designed for modern spaces.
           </p>
         </div>
 
@@ -164,8 +169,6 @@ export default function Catalogue() {
                 className="catalogue-sort-select"
               >
                 <option value="featured">Featured Collection</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
                 <option value="rating">Highest Rated</option>
               </select>
             </div>
@@ -204,22 +207,6 @@ export default function Catalogue() {
                       loading="lazy"
                       className="product-image"
                     />
-
-                    {/* Tag Badge */}
-                    {product.tag && (
-                      <span className={`product-badge-tag ${tagClass}`}>
-                        {product.tag}
-                      </span>
-                    )}
-
-                    {/* Hover Quick Add to Cart */}
-                    <button 
-                      onClick={() => triggerToast(product.name)}
-                      className="product-quick-add"
-                    >
-                      <ShoppingBag className="w-3.5 h-3.5" />
-                      <span>Add to Bag</span>
-                    </button>
                   </div>
 
                   {/* Product Details */}
@@ -231,15 +218,6 @@ export default function Catalogue() {
                     <h3 className="product-name" title={product.name}>
                       {product.name}
                     </h3>
-
-                    <div className="product-price-row">
-                      <span className="product-price">${product.price.toLocaleString()}</span>
-                      {product.originalPrice && (
-                        <span className="product-original-price">
-                          ${product.originalPrice.toLocaleString()}
-                        </span>
-                      )}
-                    </div>
                   </div>
                 </motion.article>
               );

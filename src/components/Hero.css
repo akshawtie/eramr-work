@@ -18,7 +18,7 @@
   @apply text-xs font-semibold tracking-widest uppercase text-muted-foreground;
 }
 .hero-title {
-  @apply text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter leading-[1.1] mb-6 text-primary;
+  @apply text-5xl md:text-6xl lg:text-7xl font-serif leading-[1.1] mb-6 text-primary;
 }
 .hero-description {
   @apply text-lg text-muted-foreground mb-10 leading-relaxed max-w-md;

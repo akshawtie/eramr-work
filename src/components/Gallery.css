@@ -9,7 +9,7 @@
   @apply flex justify-between items-end mb-12;
 }
 .gallery-title {
-  @apply text-3xl md:text-4xl text-primary font-semibold tracking-tight;
+  @apply text-3xl md:text-4xl text-primary font-serif;
 }
 .gallery-link {
   @apply text-sm font-medium tracking-wide uppercase hover:text-muted-foreground transition-colors hidden md:block text-primary;

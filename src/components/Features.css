@@ -9,7 +9,7 @@
   @apply text-center max-w-2xl mx-auto mb-16;
 }
 .feat-title {
-  @apply text-3xl md:text-4xl mb-4 text-primary font-semibold tracking-tight;
+  @apply text-3xl md:text-4xl mb-4 text-primary font-serif;
 }
 .feat-subtitle {
   @apply text-muted-foreground;
