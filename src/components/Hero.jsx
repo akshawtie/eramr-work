@@ -48,10 +48,16 @@ export default function Hero() {
             </p>
             
             <div className="hero-actions">
-              <button className="hero-btn-primary">
+              <button 
+                onClick={() => document.getElementById('catalogue')?.scrollIntoView({ behavior: 'smooth' })}
+                className="hero-btn-primary"
+              >
                 Shop Collection
               </button>
-              <button className="hero-btn-secondary">
+              <button 
+                onClick={() => document.getElementById('catalogue')?.scrollIntoView({ behavior: 'smooth' })}
+                className="hero-btn-secondary"
+              >
                 View Lookbook
               </button>
             </div>

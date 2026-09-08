@@ -15,7 +15,17 @@ export default function Navbar() {
               <Menu className="w-5 h-5" />
               <span className="hidden md:inline">Menu</span>
             </button>
-            <button aria-label="Search" className="navbar-icon-btn">
+            <button 
+              onClick={() => document.getElementById('catalogue')?.scrollIntoView({ behavior: 'smooth' })}
+              className="navbar-btn text-accent hover:text-accent/80 font-medium hidden sm:flex"
+            >
+              Catalogue
+            </button>
+            <button 
+              onClick={() => document.getElementById('catalogue')?.scrollIntoView({ behavior: 'smooth' })}
+              aria-label="Search" 
+              className="navbar-icon-btn"
+            >
               <Search className="w-5 h-5" />
             </button>
           </div>
