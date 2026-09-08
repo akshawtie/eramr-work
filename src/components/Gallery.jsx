@@ -37,7 +37,7 @@ export default function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.2 }}
-              className="gallery-card"
+              className="gallery-card group"
             >
               <div className="gallery-image-wrapper">
                 <img 

@@ -1,6 +1,6 @@
 @reference "../index.css";
 .gallery-section {
-  @apply py-24;
+  @apply py-24 bg-background;
 }
 .gallery-container {
   @apply container mx-auto px-6;
@@ -9,10 +9,10 @@
   @apply flex justify-between items-end mb-12;
 }
 .gallery-title {
-  @apply text-3xl md:text-5xl text-primary font-serif;
+  @apply text-3xl md:text-4xl text-primary font-semibold tracking-tight;
 }
 .gallery-link {
-  @apply text-sm font-medium tracking-wide uppercase hover:text-accent transition-colors hidden md:block text-primary;
+  @apply text-sm font-medium tracking-wide uppercase hover:text-muted-foreground transition-colors hidden md:block text-primary;
 }
 .gallery-grid {
   @apply grid md:grid-cols-3 gap-8;
@@ -21,17 +21,14 @@
   @apply cursor-pointer;
 }
 .gallery-image-wrapper {
-  @apply relative overflow-hidden mb-4 bg-muted aspect-[4/5] rounded-sm;
+  @apply relative overflow-hidden mb-4 bg-muted aspect-[4/5] rounded-md border border-border/50;
 }
 .gallery-image {
-  @apply w-full h-full object-cover transition-transform duration-700;
-}
-.gallery-card:hover .gallery-image {
-  @apply scale-105;
+  @apply w-full h-full object-cover transition-transform duration-500 group-hover:scale-105;
 }
 .gallery-card-title {
-  @apply font-serif text-xl mb-1 text-primary;
+  @apply font-medium text-lg mb-1 text-primary group-hover:underline;
 }
 .gallery-card-price {
-  @apply text-muted-foreground;
+  @apply text-muted-foreground text-sm font-medium;
 }

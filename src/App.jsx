@@ -1,3 +1,4 @@
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -8,14 +9,20 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen selection:bg-accent/20">
+    <div className="min-h-screen selection:bg-black/10">
       <Navbar />
       <main>
-        <Hero />
-        <Features />
-        <Catalogue />
-        <Gallery />
-        <Testimonials />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero />
+              <Features />
+              <Gallery />
+              <Testimonials />
+            </>
+          } />
+          <Route path="/catalogue" element={<Catalogue />} />
+        </Routes>
       </main>
       <Footer />
     </div>

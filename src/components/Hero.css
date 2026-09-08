@@ -1,12 +1,12 @@
 @reference "../index.css";
 .hero-section {
-  @apply relative pt-12 pb-20 lg:pt-16 lg:pb-24 overflow-hidden bg-background;
+  @apply relative pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden bg-background;
 }
 .hero-container {
   @apply container mx-auto px-6;
 }
 .hero-grid {
-  @apply grid lg:grid-cols-12 gap-12 items-center;
+  @apply grid lg:grid-cols-12 gap-16 items-center;
 }
 .hero-content {
   @apply lg:col-span-5 relative z-10;
@@ -14,64 +14,37 @@
 .hero-trust-badge {
   @apply flex items-center gap-2 mb-6;
 }
-.hero-stars {
-  @apply flex text-accent;
-}
-.hero-star-icon {
-  @apply w-4 h-4 fill-current;
-}
 .hero-trust-text {
-  @apply text-sm font-medium tracking-wider uppercase text-muted-foreground;
+  @apply text-xs font-semibold tracking-widest uppercase text-muted-foreground;
 }
 .hero-title {
-  @apply text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6 text-primary;
-}
-.hero-title-accent {
-  @apply text-accent italic font-serif;
+  @apply text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter leading-[1.1] mb-6 text-primary;
 }
 .hero-description {
-  @apply text-lg text-muted-foreground mb-10 leading-relaxed max-w-md border-l-2 border-accent pl-6;
+  @apply text-lg text-muted-foreground mb-10 leading-relaxed max-w-md;
 }
 .hero-actions {
   @apply flex flex-col sm:flex-row gap-4;
 }
 .hero-btn-primary {
-  @apply bg-primary text-primary-foreground px-8 py-4 text-sm uppercase tracking-widest hover:bg-accent transition-colors shadow-lg hover:shadow-xl;
+  @apply bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-primary/90 transition-colors rounded-md text-center flex items-center justify-center;
 }
 .hero-btn-secondary {
-  @apply border border-border bg-background text-primary px-8 py-4 text-sm uppercase tracking-widest hover:border-accent hover:text-accent transition-colors;
+  @apply border border-border bg-background text-primary px-6 py-3 text-sm font-medium hover:bg-muted transition-colors rounded-md text-center flex items-center justify-center;
 }
 .hero-stats-grid {
   @apply mt-12 grid grid-cols-3 gap-4 pt-8 border-t border-border;
 }
 .hero-stat-item {}
 .hero-stat-value {
-  @apply text-2xl lg:text-3xl font-serif text-primary;
+  @apply text-2xl lg:text-3xl font-semibold tracking-tight text-primary;
 }
 .hero-stat-label {
-  @apply text-[10px] lg:text-xs uppercase tracking-wider text-muted-foreground mt-1;
+  @apply text-xs tracking-wide text-muted-foreground mt-1 font-medium;
 }
 .hero-image-wrapper {
-  @apply lg:col-span-7 relative h-[500px] lg:h-[750px] w-full overflow-hidden shadow-2xl rounded-sm;
+  @apply lg:col-span-7 relative h-[400px] lg:h-[650px] w-full overflow-hidden rounded-xl border border-border/50;
 }
 .hero-image {
   @apply absolute inset-0 w-full h-full object-cover;
-}
-.hero-overlay-blend {
-  @apply absolute inset-0 bg-primary/20 mix-blend-multiply;
-}
-.hero-overlay-gradient {
-  @apply absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent;
-}
-.hero-indicators {
-  @apply absolute bottom-10 left-10 flex space-x-4 z-10;
-}
-.hero-indicator-btn {
-  @apply h-[2px] transition-all duration-500;
-}
-.hero-indicator-btn.active {
-  @apply bg-accent w-12;
-}
-.hero-indicator-btn.inactive {
-  @apply bg-white/40 w-6 hover:bg-white/80;
 }

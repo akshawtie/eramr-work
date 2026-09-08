@@ -1,14 +1,11 @@
 @reference "../index.css";
-.navbar-announcement {
-  @apply bg-primary text-primary-foreground py-2 text-center text-xs tracking-widest uppercase font-medium;
-}
 
 .navbar-header {
-  @apply sticky top-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm;
+  @apply sticky top-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border;
 }
 
 .navbar-container {
-  @apply container mx-auto px-6 h-20 flex items-center justify-between;
+  @apply container mx-auto px-6 h-16 flex items-center justify-between;
 }
 
 .navbar-menu-group {
@@ -16,13 +13,13 @@
 }
 
 .navbar-btn {
-  @apply text-foreground hover:text-accent transition-colors flex items-center gap-2 text-sm font-medium uppercase tracking-wider;
+  @apply text-foreground hover:text-muted-foreground transition-colors flex items-center gap-2 text-sm font-medium tracking-wide;
 }
 
 .navbar-icon-btn {
-  @apply text-foreground hover:text-accent transition-colors hidden md:block;
+  @apply text-foreground hover:text-muted-foreground transition-colors hidden md:block;
 }
 
 .navbar-brand {
-  @apply text-2xl md:text-3xl font-serif tracking-widest text-primary font-semibold;
+  @apply text-xl md:text-2xl font-sans tracking-tight text-primary font-semibold hover:opacity-80 transition-opacity;
 }
