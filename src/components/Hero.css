@@ -1,6 +1,6 @@
 @reference "../index.css";
 .hero-section {
-  @apply relative pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden bg-background;
+  @apply relative pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden bg-transparent;
 }
 .hero-container {
   @apply container mx-auto px-6;

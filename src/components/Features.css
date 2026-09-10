@@ -1,6 +1,6 @@
 @reference "../index.css";
 .feat-section {
-  @apply py-24 bg-muted;
+  @apply py-24 bg-muted/80 backdrop-blur-sm;
 }
 .feat-container {
   @apply container mx-auto px-6;

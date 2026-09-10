@@ -1,15 +1,15 @@
 @reference "../index.css";
 
 .navbar-header {
-  @apply sticky top-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border;
+  @apply sticky top-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border relative;
 }
 
 .navbar-container {
-  @apply container mx-auto px-6 h-16 flex items-center justify-between;
+  @apply container mx-auto px-6 h-16 flex items-center justify-between relative;
 }
 
 .navbar-menu-group {
-  @apply flex items-center space-x-6;
+  @apply flex items-center space-x-4 sm:space-x-6;
 }
 
 .navbar-btn {
@@ -21,5 +21,5 @@
 }
 
 .navbar-brand {
-  @apply text-xl md:text-2xl font-serif text-primary hover:opacity-80 transition-opacity;
+  @apply text-xl md:text-2xl font-serif text-primary hover:opacity-80 transition-opacity absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
 }

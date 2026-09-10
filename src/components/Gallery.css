@@ -1,6 +1,6 @@
 @reference "../index.css";
 .gallery-section {
-  @apply py-24 bg-background;
+  @apply py-24 bg-transparent;
 }
 .gallery-container {
   @apply container mx-auto px-6;
