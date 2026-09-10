@@ -12,33 +12,33 @@ export default function Navbar() {
       <header className="navbar-header">
         <div className="navbar-container">
           <div className="navbar-menu-group">
-            <button 
-              aria-label="Menu" 
+            <button
+              aria-label="Menu"
               className="navbar-btn"
               onClick={() => setIsMenuOpen(true)}
             >
               <Menu className="w-5 h-5" />
               <span className="hidden md:inline">Menu</span>
             </button>
-            <Link 
+            <Link
               to="/catalogue"
               className="navbar-btn font-medium hidden sm:flex hover:text-muted-foreground"
             >
               Catalogue
             </Link>
-            <Link 
+            <Link
               to="/catalogue"
-              aria-label="Search" 
+              aria-label="Search"
               className="navbar-icon-btn"
             >
               <Search className="w-5 h-5" />
             </Link>
           </div>
-          
+
           <Link to="/" className="navbar-brand">
-            ARTISANAL
+            Eramr
           </Link>
-          
+
           <div className="navbar-menu-group">
             <button aria-label="Account" className="navbar-icon-btn">
               <User className="w-5 h-5" />
@@ -59,9 +59,9 @@ export default function Navbar() {
               onClick={() => setIsMenuOpen(false)}
               className="fixed inset-0 z-[90] bg-black/40 backdrop-blur-sm"
             />
-            
+
             {/* Sidebar Panel */}
-            <motion.div 
+            <motion.div
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
@@ -70,14 +70,14 @@ export default function Navbar() {
             >
               <div className="flex justify-between items-center mb-12">
                 <span className="font-serif text-2xl text-primary">Menu</span>
-                <button 
+                <button
                   className="text-muted-foreground hover:text-foreground transition-colors p-2 -mr-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <X className="w-6 h-6" />
                 </button>
               </div>
-              
+
               <nav className="flex flex-col gap-6 text-xl font-serif text-primary">
                 <Link to="/" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Home

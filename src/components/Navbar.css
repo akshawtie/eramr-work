@@ -1,7 +1,7 @@
 @reference "../index.css";
 
 .navbar-header {
-  @apply sticky top-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border relative;
+  @apply sticky top-0 w-full z-50 bg-background/95 backdrop-blur-md border-b-[3px] border-[#152238] relative;
 }
 
 .navbar-container {

@@ -3,14 +3,14 @@ import './Testimonials.css';
 
 const reviews = [
   {
-    name: "Eleanor Richards",
+    name: "Sample User",
     role: "Interior Designer",
-    text: "The craftsmanship is unparalleled. I've sourced pieces for luxury hotels, and nothing compares to the detailed carving and rich finishes of Artisanal's collection."
+    text: "Words of praises and review about the craftsmanship in the ARR collection."
   },
   {
-    name: "James Cavendish",
-    role: "Private Collector",
-    text: "Adding their Teakwood Lounge Chair completely transformed my study. It commands the room while offering exceptional comfort. A true masterpiece."
+    name: "Place Holder Name",
+    role: "Profession",
+    text: "Place holder text bout the craftmanship and testimonial."
   }
 ];
 
@@ -18,7 +18,7 @@ export default function Testimonials() {
   return (
     <section className="testi-section">
       <div className="testi-bg-pattern"></div>
-      
+
       <div className="testi-container">
         <div className="testi-layout">
           <div className="testi-header-col">
@@ -30,10 +30,10 @@ export default function Testimonials() {
               Read All Stories
             </button>
           </div>
-          
+
           <div className="testi-grid">
             {reviews.map((rev, idx) => (
-              <motion.div 
+              <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
