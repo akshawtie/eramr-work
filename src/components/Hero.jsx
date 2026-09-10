@@ -78,18 +78,15 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="hero-image-wrapper group"
           >
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={currentSlide}
-                src={HERO_IMAGES[currentSlide]}
-                alt={`Premium decor ${currentSlide + 1}`}
-                className="hero-image"
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-              />
-            </AnimatePresence>
+            <motion.img
+              key={currentSlide}
+              src={HERO_IMAGES[currentSlide]}
+              alt={`Premium decor ${currentSlide + 1}`}
+              className="hero-image"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+            />
 
             {/* Slider Navigation */}
             <div className="hero-slider-nav">

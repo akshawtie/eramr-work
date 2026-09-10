@@ -36,7 +36,7 @@ export default function Navbar() {
           </div>
 
           <Link to="/" className="navbar-brand">
-            Eramr
+            ARR GROUPS
           </Link>
 
           <div className="navbar-menu-group">
