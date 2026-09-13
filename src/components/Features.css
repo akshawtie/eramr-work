@@ -1,6 +1,6 @@
 @reference "../index.css";
 .feat-section {
-  @apply py-24 bg-muted;
+  @apply py-24 bg-muted/80 backdrop-blur-sm;
 }
 .feat-container {
   @apply container mx-auto px-6;
@@ -21,14 +21,14 @@
   @apply flex flex-col items-center text-center;
 }
 .feat-icon-wrapper {
-  @apply w-16 h-16 rounded-full bg-background flex items-center justify-center mb-6 text-accent shadow-sm;
+  @apply w-12 h-12 rounded bg-background border border-border flex items-center justify-center mb-6 text-primary shadow-sm;
 }
 .feat-icon {
-  @apply w-8 h-8;
+  @apply w-6 h-6;
 }
 .feat-card-title {
-  @apply text-xl font-serif mb-3 text-primary;
+  @apply text-xl font-medium mb-3 text-primary;
 }
 .feat-card-desc {
-  @apply text-muted-foreground leading-relaxed;
+  @apply text-muted-foreground leading-relaxed text-sm;
 }

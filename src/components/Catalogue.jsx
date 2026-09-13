@@ -5,18 +5,23 @@ import {
   X, 
   SlidersHorizontal, 
   ChevronLeft, 
-  ChevronRight, 
-  Star, 
-  Heart, 
-  Eye, 
-  ShoppingBag, 
-  Check, 
-  Sparkles 
+  ChevronRight,
+  Check
 } from 'lucide-react';
 import { CATEGORIES, products } from '../data/products';
 import './Catalogue.css';
 
 const ITEMS_PER_PAGE = 25;
+
+const reducedProducts = [];
+const tempCatCounts = {};
+for (const p of products) {
+  if (!tempCatCounts[p.category]) tempCatCounts[p.category] = 0;
+  if (tempCatCounts[p.category] < 4) {
+    reducedProducts.push(p);
+    tempCatCounts[p.category]++;
+  }
+}
 
 export default function Catalogue() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -31,8 +36,8 @@ export default function Catalogue() {
 
   // Compute category counts
   const categoryCounts = useMemo(() => {
-    const counts = { all: products.length };
-    products.forEach((p) => {
+    const counts = { all: reducedProducts.length };
+    reducedProducts.forEach((p) => {
       counts[p.category] = (counts[p.category] || 0) + 1;
     });
     return counts;
@@ -40,7 +45,7 @@ export default function Catalogue() {
 
   // Filter & sort products
   const filteredProducts = useMemo(() => {
-    let list = products.filter((item) => {
+    let list = reducedProducts.filter((item) => {
       const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
       const q = searchQuery.trim().toLowerCase();
       const matchesSearch = 
@@ -53,11 +58,7 @@ export default function Catalogue() {
       return matchesCategory && matchesSearch;
     });
 
-    if (sortBy === 'price-asc') {
-      list.sort((a, b) => a.price - b.price);
-    } else if (sortBy === 'price-desc') {
-      list.sort((a, b) => b.price - a.price);
-    } else if (sortBy === 'rating') {
+    if (sortBy === 'rating') {
       list.sort((a, b) => b.rating - a.rating || b.reviewsCount - a.reviewsCount);
     }
 
@@ -109,13 +110,9 @@ export default function Catalogue() {
         
         {/* ================= CATALOGUE HEADER ================= */}
         <div className="catalogue-header">
-          <div className="catalogue-eyebrow">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Artisanal Archive</span>
-          </div>
-          <h2 className="catalogue-title">The Royal Catalogue</h2>
+          <h2 className="catalogue-title">Catalogue</h2>
           <p className="catalogue-subtitle">
-            Explore {products.length} mastercrafted heirloom furnishings and decor pieces, hand-selected across our regional artisan guilds.
+            Explore {reducedProducts.length} curated pieces designed for modern spaces.
           </p>
         </div>
 
@@ -172,8 +169,6 @@ export default function Catalogue() {
                 className="catalogue-sort-select"
               >
                 <option value="featured">Featured Collection</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
                 <option value="rating">Highest Rated</option>
               </select>
             </div>
@@ -212,79 +207,17 @@ export default function Catalogue() {
                       loading="lazy"
                       className="product-image"
                     />
-
-                    {/* Tag Badge */}
-                    {product.tag && (
-                      <span className={`product-badge-tag ${tagClass}`}>
-                        {product.tag}
-                      </span>
-                    )}
-
-                    {/* Top Action Icons */}
-                    <div className="product-action-buttons">
-                      <button 
-                        onClick={(e) => toggleFavorite(product.id, e)}
-                        className={`product-icon-action ${isFav ? 'text-red-600' : ''}`}
-                        aria-label={isFav ? "Remove from wishlist" : "Add to wishlist"}
-                      >
-                        <Heart className={`w-4 h-4 ${isFav ? 'fill-current' : ''}`} />
-                      </button>
-                      <button 
-                        onClick={() => setSelectedProduct(product)}
-                        className="product-icon-action"
-                        aria-label="Quick preview"
-                      >
-                        <Eye className="w-4 h-4" />
-                      </button>
-                    </div>
-
-                    {/* Hover Quick Add to Cart */}
-                    <button 
-                      onClick={() => triggerToast(product.name)}
-                      className="product-quick-add"
-                    >
-                      <ShoppingBag className="w-3.5 h-3.5" />
-                      <span>Add to Bag</span>
-                    </button>
                   </div>
 
                   {/* Product Details */}
                   <div className="product-details">
                     <div className="product-category-row">
                       <span>{product.categoryLabel}</span>
-                      <div className="product-rating">
-                        <Star className="w-3.5 h-3.5 fill-current text-accent" />
-                        <span>{product.rating}</span>
-                        <span className="text-muted-foreground font-light text-[10px]">({product.reviewsCount})</span>
-                      </div>
                     </div>
 
-                    <h3 
-                      onClick={() => setSelectedProduct(product)}
-                      className="product-name"
-                      title={product.name}
-                    >
+                    <h3 className="product-name" title={product.name}>
                       {product.name}
                     </h3>
-
-                    <p className="product-material">
-                      {product.material}
-                    </p>
-
-                    <div className="product-price-row">
-                      <div className="flex items-baseline">
-                        <span className="product-price">${product.price.toLocaleString()}</span>
-                        {product.originalPrice && (
-                          <span className="product-original-price">
-                            ${product.originalPrice.toLocaleString()}
-                          </span>
-                        )}
-                      </div>
-                      <span className="product-stock-pill">
-                        <Check className="w-3 h-3 stroke-[2.5]" />
-                        In Stock
-                      </span>
-                    </div>
                   </div>
                 </motion.article>
               );
@@ -356,117 +289,6 @@ export default function Catalogue() {
 
       </div>
 
-      {/* ================= QUICK VIEW MODAL ================= */}
-      <AnimatePresence>
-        {selectedProduct && (
-          <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.25 }}
-              onClick={(e) => e.stopPropagation()}
-              className="modal-content"
-            >
-              <button 
-                onClick={() => setSelectedProduct(null)} 
-                className="modal-close-btn"
-                aria-label="Close modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="modal-grid">
-                <div className="modal-image-col">
-                  <img 
-                    src={selectedProduct.image} 
-                    alt={selectedProduct.name} 
-                    className="modal-image"
-                  />
-                </div>
-
-                <div className="modal-info-col">
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xs uppercase tracking-wider text-accent font-semibold">
-                        {selectedProduct.categoryLabel}
-                      </span>
-                      {selectedProduct.tag && (
-                        <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
-                          {selectedProduct.tag}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="modal-title">{selectedProduct.name}</h3>
-
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="flex items-center text-accent">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                        ))}
-                      </div>
-                      <span className="text-xs text-foreground font-medium">{selectedProduct.rating}</span>
-                      <span className="text-xs text-muted-foreground">({selectedProduct.reviewsCount} customer reviews)</span>
-                    </div>
-
-                    <p className="modal-description">{selectedProduct.description}</p>
-
-                    <div className="modal-spec-grid">
-                      <div>
-                        <span className="modal-spec-label">Material & Craft</span>
-                        <span className="modal-spec-value">{selectedProduct.material}</span>
-                      </div>
-                      <div>
-                        <span className="modal-spec-label">Dimensions</span>
-                        <span className="modal-spec-value">{selectedProduct.dimensions || 'Custom sizing available'}</span>
-                      </div>
-                      <div>
-                        <span className="modal-spec-label">Delivery</span>
-                        <span className="modal-spec-value">White-Glove In-Room</span>
-                      </div>
-                      <div>
-                        <span className="modal-spec-label">Warranty</span>
-                        <span className="modal-spec-value">10-Year Artisan Guarantee</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex items-baseline justify-between mb-4">
-                      <div>
-                        <span className="text-2xl font-serif font-semibold text-primary">
-                          ${selectedProduct.price.toLocaleString()}
-                        </span>
-                        {selectedProduct.originalPrice && (
-                          <span className="text-sm text-muted-foreground line-through ml-2">
-                            ${selectedProduct.originalPrice.toLocaleString()}
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-xs text-emerald-600 font-medium flex items-center gap-1">
-                        <Check className="w-3.5 h-3.5" />
-                        Available for immediate dispatch
-                      </span>
-                    </div>
-
-                    <button 
-                      onClick={() => {
-                        triggerToast(selectedProduct.name);
-                        setSelectedProduct(null);
-                      }}
-                      className="modal-add-btn"
-                    >
-                      <ShoppingBag className="w-4 h-4" />
-                      <span>Add to Shopping Bag</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
 
       {/* ================= TOAST NOTIFICATION ================= */}
       <AnimatePresence>

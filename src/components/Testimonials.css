@@ -1,11 +1,9 @@
 @reference "../index.css";
 .testi-section {
-  @apply py-24 bg-primary text-primary-foreground relative overflow-hidden;
+  @apply py-24 bg-primary text-primary-foreground border-y border-border relative overflow-hidden;
 }
 .testi-bg-pattern {
-  @apply absolute inset-0 opacity-5;
-  background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0);
-  background-size: 40px 40px;
+  @apply hidden;
 }
 .testi-container {
   @apply container mx-auto px-6 relative z-10;
@@ -29,17 +27,17 @@
   @apply md:w-2/3 grid sm:grid-cols-2 gap-8;
 }
 .testi-card {
-  @apply bg-white/5 p-8 border border-white/10 backdrop-blur-sm;
+  @apply bg-white/5 p-8 rounded-lg border border-white/10;
 }
 .testi-quote-mark {
   @apply text-accent text-4xl font-serif mb-4;
 }
 .testi-text {
-  @apply text-lg leading-relaxed mb-8 text-primary-foreground/90 italic;
+  @apply text-base leading-relaxed mb-8 text-primary-foreground/90 italic;
 }
 .testi-author-name {
   @apply font-serif text-lg text-white;
 }
 .testi-author-role {
-  @apply text-sm uppercase tracking-wider text-accent mt-1;
+  @apply text-xs uppercase tracking-wider text-accent mt-1 font-medium;
 }
