@@ -1,8 +1,4 @@
 @reference "../index.css";
-.navbar-announcement {
-  @apply bg-primary text-primary-foreground py-2 text-center text-xs tracking-widest uppercase font-medium;
-}
-
 .navbar-header {
   @apply sticky top-0 w-full z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm;
 }

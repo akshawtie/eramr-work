@@ -3,12 +3,7 @@ import './Navbar.css';
 
 export default function Navbar() {
   return (
-    <>
-      {/* Announcement Bar */}
-      <div className="navbar-announcement">
-        Complimentary White-Glove Delivery on Orders Over $2,500
-      </div>
-      <header className="navbar-header">
+    <header className="navbar-header">
         <div className="navbar-container">
           <div className="navbar-menu-group">
             <button aria-label="Menu" className="navbar-btn">
@@ -43,6 +38,5 @@ export default function Navbar() {
           </div>
         </div>
       </header>
-    </>
   );
 }
