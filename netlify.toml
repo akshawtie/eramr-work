@@ -1,0 +1,15 @@
+[build]
+  # If you deploy the whole site to Netlify (recommended):
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+
+# Allow the frontend (GitHub Pages or anywhere) to call the function
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Allow-Methods = "POST, OPTIONS"

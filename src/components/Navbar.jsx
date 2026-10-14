@@ -27,6 +27,12 @@ export default function Navbar() {
               Catalogue
             </Link>
             <Link
+              to="/contact"
+              className="navbar-btn font-medium hidden sm:flex hover:text-muted-foreground"
+            >
+              Contact Us
+            </Link>
+            <Link
               to="/catalogue"
               aria-label="Search"
               className="navbar-icon-btn"
@@ -91,9 +97,9 @@ export default function Navbar() {
                 <a href="#" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Artisans
                 </a>
-                <a href="#" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/contact" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Contact
-                </a>
+                </Link>
               </nav>
             </motion.div>
           </>

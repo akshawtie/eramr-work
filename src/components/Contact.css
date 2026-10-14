@@ -1,0 +1,160 @@
+@reference "../index.css";
+
+/* ── Layout ──────────────────────────────────────── */
+.contact-page {
+  @apply min-h-screen flex flex-col lg:flex-row;
+}
+
+/* ── Left Image Panel (2 of 7 ratio) ────────────── */
+.contact-image-panel {
+  @apply relative w-full lg:w-[28.57%] h-[280px] sm:h-[340px] lg:h-auto lg:min-h-screen overflow-hidden;
+}
+
+.contact-image-panel img {
+  @apply absolute inset-0 w-full h-full object-cover;
+}
+
+.contact-image-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-primary/10 lg:to-primary/40;
+}
+
+.contact-image-text {
+  @apply absolute bottom-6 left-6 right-6 lg:bottom-12 lg:left-8 lg:right-8 z-10;
+}
+
+.contact-image-text h2 {
+  @apply text-2xl sm:text-3xl lg:text-4xl font-serif text-white leading-tight mb-2;
+}
+
+.contact-image-text p {
+  @apply text-sm text-white/70 leading-relaxed max-w-xs;
+}
+
+/* ── Right Form Panel (5 of 7 ratio) ────────────── */
+.contact-form-panel {
+  @apply w-full lg:w-[71.43%] bg-background flex items-start lg:items-center justify-center px-6 sm:px-10 lg:px-16 xl:px-24 py-12 lg:py-16;
+}
+
+.contact-form-wrapper {
+  @apply w-full max-w-2xl;
+}
+
+.contact-form-header {
+  @apply mb-10;
+}
+
+.contact-form-header h1 {
+  @apply text-3xl sm:text-4xl lg:text-5xl font-serif text-primary leading-tight mb-3;
+}
+
+.contact-form-header p {
+  @apply text-base text-muted-foreground leading-relaxed max-w-lg;
+}
+
+/* ── Form ────────────────────────────────────────── */
+.contact-form {
+  @apply space-y-6;
+}
+
+.contact-form-row {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
+}
+
+.contact-field-group {
+  @apply flex flex-col gap-2;
+}
+
+.contact-label {
+  @apply text-xs font-semibold tracking-widest uppercase text-primary/70;
+}
+
+.contact-input {
+  @apply w-full bg-transparent border-b-2 border-border pb-3 pt-1 text-foreground text-sm
+    placeholder:text-muted-foreground/50
+    focus:border-accent focus:outline-none
+    transition-colors duration-300;
+}
+
+.contact-textarea {
+  @apply w-full bg-transparent border-b-2 border-border pb-3 pt-1 text-foreground text-sm
+    placeholder:text-muted-foreground/50
+    focus:border-accent focus:outline-none
+    transition-colors duration-300 resize-none min-h-[100px];
+}
+
+.contact-select {
+  @apply w-full bg-transparent border-b-2 border-border pb-3 pt-1 text-foreground text-sm
+    focus:border-accent focus:outline-none
+    transition-colors duration-300 appearance-none cursor-pointer;
+}
+
+.contact-select option {
+  @apply bg-background text-foreground;
+}
+
+/* Error state */
+.contact-input-error {
+  @apply border-red-500;
+}
+
+.contact-error-text {
+  @apply text-xs text-red-600 mt-1;
+}
+
+/* ── Submit Button ───────────────────────────────── */
+.contact-submit-btn {
+  @apply w-full sm:w-auto bg-primary text-primary-foreground px-10 py-4 text-sm font-semibold
+    tracking-wider uppercase rounded-md
+    hover:bg-primary/90 active:scale-[0.98]
+    transition-all duration-300 cursor-pointer
+    disabled:opacity-50 disabled:cursor-not-allowed
+    flex items-center justify-center gap-3;
+}
+
+/* ── Success Message ─────────────────────────────── */
+.contact-success {
+  @apply bg-accent/10 border border-accent/30 rounded-xl p-8 text-center;
+}
+
+.contact-success-icon {
+  @apply w-16 h-16 mx-auto mb-4 rounded-full bg-accent/20 flex items-center justify-center text-accent;
+}
+
+.contact-success h3 {
+  @apply text-2xl font-serif text-primary mb-2;
+}
+
+.contact-success p {
+  @apply text-sm text-muted-foreground leading-relaxed;
+}
+
+/* ── Contact Info Bar ────────────────────────────── */
+.contact-info-bar {
+  @apply mt-12 pt-8 border-t border-border grid grid-cols-1 sm:grid-cols-3 gap-6;
+}
+
+.contact-info-item {
+  @apply flex items-start gap-3;
+}
+
+.contact-info-icon {
+  @apply w-10 h-10 rounded-full bg-muted flex items-center justify-center text-primary shrink-0;
+}
+
+.contact-info-text h4 {
+  @apply text-sm font-semibold text-primary;
+}
+
+.contact-info-text p {
+  @apply text-xs text-muted-foreground mt-0.5;
+}
+
+/* ── Loading Spinner ─────────────────────────────── */
+@keyframes contact-spin {
+  to { transform: rotate(360deg); }
+}
+
+.contact-spinner {
+  @apply w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full;
+  animation: contact-spin 0.6s linear infinite;
+}
