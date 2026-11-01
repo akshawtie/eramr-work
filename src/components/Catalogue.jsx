@@ -6,69 +6,75 @@ import {
   SlidersHorizontal, 
   ChevronLeft, 
   ChevronRight,
-  Check
+  Check,
+  ChevronDown
 } from 'lucide-react';
-import { CATEGORIES, products } from '../data/products';
+import { Link } from 'react-router-dom';
+import { CATEGORIES, SUB_CATEGORIES, products } from '../data/products';
 import './Catalogue.css';
 
-const ITEMS_PER_PAGE = 25;
-
-const reducedProducts = [];
-const tempCatCounts = {};
-for (const p of products) {
-  if (!tempCatCounts[p.category]) tempCatCounts[p.category] = 0;
-  if (tempCatCounts[p.category] < 4) {
-    reducedProducts.push(p);
-    tempCatCounts[p.category]++;
-  }
-}
+const ITEMS_PER_PAGE = 24;
 
 export default function Catalogue() {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedSubCategory, setSelectedSubCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('featured');
   const [currentPage, setCurrentPage] = useState(1);
-  const [favorites, setFavorites] = useState({});
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [toastMessage, setToastMessage] = useState(null);
 
   const sectionRef = useRef(null);
 
+  // Get available sub-categories for current category
+  const availableSubCategories = useMemo(() => {
+    if (selectedCategory === 'all') return [];
+    return SUB_CATEGORIES[selectedCategory] || [];
+  }, [selectedCategory]);
+
   // Compute category counts
   const categoryCounts = useMemo(() => {
-    const counts = { all: reducedProducts.length };
-    reducedProducts.forEach((p) => {
+    const counts = { all: products.length };
+    products.forEach((p) => {
       counts[p.category] = (counts[p.category] || 0) + 1;
     });
     return counts;
   }, []);
 
-  // Filter & sort products
+  // Compute sub-category counts
+  const subCategoryCounts = useMemo(() => {
+    const counts = {};
+    products.forEach((p) => {
+      const key = `${p.category}:${p.subCategory}`;
+      counts[key] = (counts[key] || 0) + 1;
+    });
+    return counts;
+  }, []);
+
+  // Filter products
   const filteredProducts = useMemo(() => {
-    let list = reducedProducts.filter((item) => {
+    return products.filter((item) => {
       const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+      const matchesSubCategory = selectedSubCategory === 'all' || item.subCategory === selectedSubCategory;
       const q = searchQuery.trim().toLowerCase();
       const matchesSearch = 
         !q || 
         item.name.toLowerCase().includes(q) || 
-        item.material.toLowerCase().includes(q) ||
         item.categoryLabel.toLowerCase().includes(q) ||
-        item.description.toLowerCase().includes(q);
+        item.subCategoryLabel.toLowerCase().includes(q) ||
+        (item.sourceCode && item.sourceCode.toLowerCase().includes(q));
 
-      return matchesCategory && matchesSearch;
+      return matchesCategory && matchesSubCategory && matchesSearch;
     });
+  }, [selectedCategory, selectedSubCategory, searchQuery]);
 
-    if (sortBy === 'rating') {
-      list.sort((a, b) => b.rating - a.rating || b.reviewsCount - a.reviewsCount);
-    }
-
-    return list;
-  }, [selectedCategory, searchQuery, sortBy]);
-
-  // Reset page when category or search or sort changes
+  // Reset page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategory, searchQuery, sortBy]);
+  }, [selectedCategory, selectedSubCategory, searchQuery]);
+
+  // Reset sub-category when category changes
+  useEffect(() => {
+    setSelectedSubCategory('all');
+  }, [selectedCategory]);
 
   // Pagination calculations
   const totalItems = filteredProducts.length;
@@ -82,26 +88,28 @@ export default function Catalogue() {
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages && newPage !== validCurrentPage) {
       setCurrentPage(newPage);
-      // Smooth scroll back to catalogue section top
       if (sectionRef.current) {
         sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
   };
 
-  const toggleFavorite = (id, e) => {
-    e.stopPropagation();
-    setFavorites((prev) => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
-  };
-
-  const triggerToast = (productName) => {
-    setToastMessage(`"${productName}" added to your bag`);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 3500);
+  // Generate visible page numbers
+  const getVisiblePages = () => {
+    const pages = [];
+    const maxVisible = 7;
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (validCurrentPage > 3) pages.push('...');
+      const start = Math.max(2, validCurrentPage - 1);
+      const end = Math.min(totalPages - 1, validCurrentPage + 1);
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (validCurrentPage < totalPages - 2) pages.push('...');
+      pages.push(totalPages);
+    }
+    return pages;
   };
 
   return (
@@ -110,9 +118,9 @@ export default function Catalogue() {
         
         {/* ================= CATALOGUE HEADER ================= */}
         <div className="catalogue-header">
-          <h2 className="catalogue-title">Catalogue</h2>
+          <h2 className="catalogue-title">Product Catalogue</h2>
           <p className="catalogue-subtitle">
-            Explore {reducedProducts.length} curated pieces designed for modern spaces.
+            Explore our complete collection of {products.length} handcrafted artisanal products.
           </p>
         </div>
 
@@ -136,6 +144,37 @@ export default function Catalogue() {
           })}
         </div>
 
+        {/* ================= SUB-CATEGORY CHIPS ================= */}
+        {availableSubCategories.length > 0 && (
+          <div className="catalogue-subcategory-nav">
+            <button
+              onClick={() => setSelectedSubCategory('all')}
+              className={`subcategory-chip ${selectedSubCategory === 'all' ? 'active' : ''}`}
+            >
+              All
+            </button>
+            {availableSubCategories.map((sub) => {
+              const count = subCategoryCounts[`${selectedCategory}:${sub.id}`] || 0;
+              return (
+                <button
+                  key={sub.id}
+                  onClick={() => setSelectedSubCategory(sub.id)}
+                  className={`subcategory-chip ${selectedSubCategory === sub.id ? 'active' : ''}`}
+                >
+                  {sub.label}
+                  <span className="subcategory-count">{count}</span>
+                </button>
+              );
+            })}
+            {selectedCategory === 'kitchenware' && (
+              <Link to="/catalogue/trays" className="trays-collection-link">
+                Explore the trays collection
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            )}
+          </div>
+        )}
+
         {/* ================= SEARCH & TOOLBAR ================= */}
         <div className="catalogue-toolbar">
           <div className="catalogue-search-wrapper">
@@ -144,7 +183,7 @@ export default function Catalogue() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by piece name, wood, brass, or material..."
+              placeholder="Search by product name, code, or category..."
               className="catalogue-search-input"
             />
             {searchQuery && (
@@ -159,46 +198,30 @@ export default function Catalogue() {
           </div>
 
           <div className="catalogue-toolbar-actions">
-            <div className="catalogue-sort-wrapper">
-              <SlidersHorizontal className="w-4 h-4" />
-              <label htmlFor="catalogue-sort" className="sr-only">Sort By</label>
-              <select
-                id="catalogue-sort"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="catalogue-sort-select"
-              >
-                <option value="featured">Featured Collection</option>
-                <option value="rating">Highest Rated</option>
-              </select>
-            </div>
-
             <div className="catalogue-count-info">
               {totalItems > 0 ? (
                 <span>
-                  Showing <strong>{startIndex + 1}–{endIndex}</strong> of <strong>{totalItems}</strong> pieces
+                  Showing <strong>{startIndex + 1}–{endIndex}</strong> of <strong>{totalItems}</strong> products
                 </span>
               ) : (
-                <span>0 pieces found</span>
+                <span>0 products found</span>
               )}
             </div>
           </div>
         </div>
 
-        {/* ================= PRODUCT GRID (25 PER PAGE) ================= */}
+        {/* ================= PRODUCT GRID ================= */}
         {currentProducts.length > 0 ? (
           <div className="catalogue-grid">
             {currentProducts.map((product, idx) => {
-              const tagClass = (product.tag || '').toLowerCase().replace(/\s+/g, '-');
-              const isFav = !!favorites[product.id];
-
               return (
                 <motion.article 
                   key={product.id}
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: (idx % 10) * 0.04 }}
+                  transition={{ duration: 0.35, delay: (idx % 12) * 0.04 }}
                   className="product-card group"
+                  onClick={() => setSelectedProduct(product)}
                 >
                   <div className="product-image-container">
                     <img 
@@ -207,12 +230,15 @@ export default function Catalogue() {
                       loading="lazy"
                       className="product-image"
                     />
+                    <div className="product-code-badge">
+                      {product.sourceCode}
+                    </div>
                   </div>
 
                   {/* Product Details */}
                   <div className="product-details">
                     <div className="product-category-row">
-                      <span>{product.categoryLabel}</span>
+                      <span className="product-sub-label">{product.subCategoryLabel}</span>
                     </div>
 
                     <h3 className="product-name" title={product.name}>
@@ -224,12 +250,12 @@ export default function Catalogue() {
             })}
           </div>
         ) : (
-          <div className="text-center py-20 bg-white rounded-xl border border-dashed border-border mb-12">
-            <p className="text-lg font-serif text-primary mb-2">No matching artisanal pieces found</p>
-            <p className="text-sm text-muted-foreground mb-4">Try clearing your search or switching categories.</p>
+          <div className="catalogue-empty">
+            <p className="catalogue-empty-title">No matching products found</p>
+            <p className="catalogue-empty-subtitle">Try clearing your search or switching categories.</p>
             <button
-              onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
-              className="px-5 py-2 bg-primary text-primary-foreground text-xs uppercase tracking-wider rounded-md"
+              onClick={() => { setSearchQuery(''); setSelectedCategory('all'); setSelectedSubCategory('all'); }}
+              className="catalogue-reset-btn"
             >
               Reset Filters
             </button>
@@ -237,11 +263,11 @@ export default function Catalogue() {
         )}
 
         {/* ================= PAGINATION SYSTEM ================= */}
-        {totalItems > 0 && (
+        {totalItems > 0 && totalPages > 1 && (
           <nav className="pagination-wrapper" aria-label="Catalogue Pagination">
             <div className="pagination-summary">
               Showing <strong>{startIndex + 1}–{endIndex}</strong> of <strong>{totalItems}</strong> items 
-              <span className="hidden sm:inline"> (Page {validCurrentPage} of {totalPages})</span>
+              <span className="pagination-page-label"> (Page {validCurrentPage} of {totalPages})</span>
             </div>
 
             <div className="pagination-controls">
@@ -258,7 +284,10 @@ export default function Catalogue() {
 
               {/* Page Numbers */}
               <div className="pagination-page-numbers">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
+                {getVisiblePages().map((pageNum, i) => {
+                  if (pageNum === '...') {
+                    return <span key={`ellipsis-${i}`} className="pagination-ellipsis">…</span>;
+                  }
                   const isActive = pageNum === validCurrentPage;
                   return (
                     <button
@@ -289,18 +318,47 @@ export default function Catalogue() {
 
       </div>
 
-
-      {/* ================= TOAST NOTIFICATION ================= */}
+      {/* ================= PRODUCT LIGHTBOX MODAL ================= */}
       <AnimatePresence>
-        {toastMessage && (
-          <motion.div 
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="catalogue-toast"
+        {selectedProduct && (
+          <motion.div
+            className="product-lightbox-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProduct(null)}
           >
-            <Check className="w-4 h-4 text-emerald-400" />
-            <span>{toastMessage}</span>
+            <motion.div
+              className="product-lightbox"
+              initial={{ opacity: 0, scale: 0.9, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                className="lightbox-close-btn" 
+                onClick={() => setSelectedProduct(null)}
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              <div className="lightbox-image-wrapper">
+                <img 
+                  src={selectedProduct.image} 
+                  alt={selectedProduct.name} 
+                  className="lightbox-image"
+                />
+              </div>
+              <div className="lightbox-info">
+                <span className="lightbox-code">{selectedProduct.sourceCode}</span>
+                <h3 className="lightbox-name">{selectedProduct.name}</h3>
+                <div className="lightbox-meta">
+                  <span className="lightbox-category">{selectedProduct.categoryLabel}</span>
+                  <span className="lightbox-separator">→</span>
+                  <span className="lightbox-subcategory">{selectedProduct.subCategoryLabel}</span>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

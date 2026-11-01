@@ -91,6 +91,9 @@ export default function Navbar() {
                 <Link to="/catalogue" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Catalogue
                 </Link>
+                <Link to="/catalogue/trays" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  Trays collection
+                </Link>
                 <a href="#" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Our Heritage
                 </a>

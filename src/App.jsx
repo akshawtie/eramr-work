@@ -7,6 +7,7 @@ import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import Contact from './components/Contact';
+import TraysPage from './components/TraysPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             </>
           } />
           <Route path="/catalogue" element={<Catalogue />} />
+          <Route path="/catalogue/trays" element={<TraysPage />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
