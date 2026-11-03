@@ -38,7 +38,7 @@ export const SUB_CATEGORIES = {
   ]
 };
 
-export const products = [
+const productData = [
   // ===================== KITCHENWARE - TRAYS =====================
   {
     id: 'ktw001',
@@ -1590,6 +1590,11 @@ export const products = [
     ['kh237', 'KH-237', 'Iron Wine Rack'],
   ]),
 ];
+
+export const products = productData.map((product) => ({
+  ...product,
+  image: `${import.meta.env.BASE_URL}${product.image.replace(/^\/+/, '')}`
+}));
 
 // Helper to generate cane-metal product objects
 function generateCaneMetalProducts(subCategory, subCategoryLabel, items) {
