@@ -3,11 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
   X, 
-  SlidersHorizontal, 
   ChevronLeft, 
-  ChevronRight,
-  Check,
-  ChevronDown
+  ChevronRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CATEGORIES, SUB_CATEGORIES, products } from '../data/products';
@@ -118,9 +115,9 @@ export default function Catalogue() {
         
         {/* ================= CATALOGUE HEADER ================= */}
         <div className="catalogue-header">
-          <h2 className="catalogue-title">Product Catalogue</h2>
+          <h2 className="catalogue-title">Catalogue</h2>
           <p className="catalogue-subtitle">
-            Explore our complete collection of {products.length} handcrafted artisanal products.
+            {products.length} products
           </p>
         </div>
 
@@ -168,14 +165,14 @@ export default function Catalogue() {
             })}
             {selectedCategory === 'kitchenware' && (
               <Link to="/catalogue/trays" className="trays-collection-link">
-                Explore the trays collection
-                <ChevronRight className="w-4 h-4" />
+                View Trays Collection
+                <ChevronRight className="w-3 h-3" />
               </Link>
             )}
             {selectedCategory === 'cane-metal' && (
               <Link to="/catalogue/iron-planter-stands" className="trays-collection-link">
-                Explore iron planter stands
-                <ChevronRight className="w-4 h-4" />
+                View Planter Stands
+                <ChevronRight className="w-3 h-3" />
               </Link>
             )}
           </div>
@@ -189,7 +186,7 @@ export default function Catalogue() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by product name, code, or category..."
+              placeholder="Search products..."
               className="catalogue-search-input"
             />
             {searchQuery && (
@@ -198,7 +195,7 @@ export default function Catalogue() {
                 className="catalogue-clear-search"
                 aria-label="Clear search"
               >
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5" />
               </button>
             )}
           </div>
@@ -207,10 +204,10 @@ export default function Catalogue() {
             <div className="catalogue-count-info">
               {totalItems > 0 ? (
                 <span>
-                  Showing <strong>{startIndex + 1}–{endIndex}</strong> of <strong>{totalItems}</strong> products
+                  <strong>{startIndex + 1}–{endIndex}</strong> of <strong>{totalItems}</strong>
                 </span>
               ) : (
-                <span>0 products found</span>
+                <span>No results</span>
               )}
             </div>
           </div>
@@ -223,10 +220,10 @@ export default function Catalogue() {
               return (
                 <motion.article 
                   key={product.id}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: (idx % 12) * 0.04 }}
-                  className="product-card group"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: (idx % 12) * 0.03 }}
+                  className="product-card"
                   onClick={() => setSelectedProduct(product)}
                 >
                   <div className="product-image-container">
@@ -257,13 +254,13 @@ export default function Catalogue() {
           </div>
         ) : (
           <div className="catalogue-empty">
-            <p className="catalogue-empty-title">No matching products found</p>
-            <p className="catalogue-empty-subtitle">Try clearing your search or switching categories.</p>
+            <p className="catalogue-empty-title">No matching products</p>
+            <p className="catalogue-empty-subtitle">Try adjusting your search or filters.</p>
             <button
               onClick={() => { setSearchQuery(''); setSelectedCategory('all'); setSelectedSubCategory('all'); }}
               className="catalogue-reset-btn"
             >
-              Reset Filters
+              Clear All
             </button>
           </div>
         )}
@@ -272,8 +269,8 @@ export default function Catalogue() {
         {totalItems > 0 && totalPages > 1 && (
           <nav className="pagination-wrapper" aria-label="Catalogue Pagination">
             <div className="pagination-summary">
-              Showing <strong>{startIndex + 1}–{endIndex}</strong> of <strong>{totalItems}</strong> items 
-              <span className="pagination-page-label"> (Page {validCurrentPage} of {totalPages})</span>
+              <strong>{startIndex + 1}–{endIndex}</strong> of <strong>{totalItems}</strong> items 
+              <span className="pagination-page-label"> — Page {validCurrentPage} of {totalPages}</span>
             </div>
 
             <div className="pagination-controls">
@@ -284,8 +281,8 @@ export default function Catalogue() {
                 className="pagination-btn"
                 aria-label="Previous Page"
               >
-                <ChevronLeft className="w-4 h-4" />
-                <span>Previous</span>
+                <ChevronLeft className="w-3.5 h-3.5" />
+                <span>Prev</span>
               </button>
 
               {/* Page Numbers */}
@@ -316,7 +313,7 @@ export default function Catalogue() {
                 aria-label="Next Page"
               >
                 <span>Next</span>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </nav>
@@ -336,9 +333,10 @@ export default function Catalogue() {
           >
             <motion.div
               className="product-lightbox"
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.25 }}
               onClick={(e) => e.stopPropagation()}
             >
               <button 
@@ -346,7 +344,7 @@ export default function Catalogue() {
                 onClick={() => setSelectedProduct(null)}
                 aria-label="Close"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
               <div className="lightbox-image-wrapper">
                 <img 
@@ -360,7 +358,7 @@ export default function Catalogue() {
                 <h3 className="lightbox-name">{selectedProduct.name}</h3>
                 <div className="lightbox-meta">
                   <span className="lightbox-category">{selectedProduct.categoryLabel}</span>
-                  <span className="lightbox-separator">→</span>
+                  <span className="lightbox-separator">/</span>
                   <span className="lightbox-subcategory">{selectedProduct.subCategoryLabel}</span>
                 </div>
               </div>
