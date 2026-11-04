@@ -1,13 +1,13 @@
 @reference "../index.css";
 
-/* ── Layout ──────────────────────────────────────── */
+/* ── Layout ── */
 .contact-page {
   @apply min-h-screen flex flex-col lg:flex-row;
 }
 
-/* ── Left Image Panel (2 of 7 ratio) ────────────── */
+/* ── Left Image Panel ── */
 .contact-image-panel {
-  @apply relative w-full lg:w-[28.57%] h-[280px] sm:h-[340px] lg:h-auto lg:min-h-screen overflow-hidden;
+  @apply relative w-full lg:w-[35%] h-[240px] sm:h-[300px] lg:h-auto lg:min-h-screen overflow-hidden;
 }
 
 .contact-image-panel img {
@@ -15,45 +15,52 @@
 }
 
 .contact-image-overlay {
-  @apply absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-primary/10 lg:to-primary/40;
+  @apply absolute inset-0;
+  background: linear-gradient(to top, rgba(0,0,0,0.15) 0%, transparent 50%);
 }
 
-.contact-image-text {
-  @apply absolute bottom-6 left-6 right-6 lg:bottom-12 lg:left-8 lg:right-8 z-10;
-}
-
-.contact-image-text h2 {
-  @apply text-2xl sm:text-3xl lg:text-4xl font-serif text-white leading-tight mb-2;
-}
-
-.contact-image-text p {
-  @apply text-sm text-white/70 leading-relaxed max-w-xs;
-}
-
-/* ── Right Form Panel (5 of 7 ratio) ────────────── */
+/* ── Right Form Panel ── */
 .contact-form-panel {
-  @apply w-full lg:w-[71.43%] bg-background flex items-start lg:items-center justify-center px-6 sm:px-10 lg:px-16 xl:px-24 py-12 lg:py-16;
+  @apply w-full lg:w-[65%] bg-white flex items-start lg:items-center justify-center py-16 lg:py-20;
+  padding-left: clamp(1.5rem, 5vw, 5rem);
+  padding-right: clamp(1.5rem, 5vw, 5rem);
 }
 
 .contact-form-wrapper {
-  @apply w-full max-w-2xl;
+  @apply w-full max-w-xl;
 }
 
+/* ── Header ── */
 .contact-form-header {
-  @apply mb-10;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .contact-form-header h1 {
-  @apply text-3xl sm:text-4xl lg:text-5xl font-serif text-primary leading-tight mb-3;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 500;
+  color: #222;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+  line-height: 1.15;
 }
 
 .contact-form-header p {
-  @apply text-base text-muted-foreground leading-relaxed max-w-lg;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.8rem;
+  color: #999;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  max-width: 28rem;
 }
 
-/* ── Form ────────────────────────────────────────── */
+/* ── Form ── */
 .contact-form {
-  @apply space-y-6;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
 }
 
 .contact-form-row {
@@ -61,100 +68,249 @@
 }
 
 .contact-field-group {
-  @apply flex flex-col gap-2;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .contact-label {
-  @apply text-xs font-semibold tracking-widest uppercase text-primary/70;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #222;
+  margin-bottom: 0.5rem;
 }
 
 .contact-input {
-  @apply w-full bg-transparent border-b-2 border-border pb-3 pt-1 text-foreground text-sm
-    placeholder:text-muted-foreground/50
-    focus:border-accent focus:outline-none
-    transition-colors duration-300;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.8rem;
+  color: #222;
+  outline: none;
+  transition: border-color 0.2s;
+  border-radius: 0;
+  letter-spacing: 0.01em;
+}
+
+.contact-input::placeholder {
+  color: #bbb;
+}
+
+.contact-input:focus {
+  border-color: #222;
 }
 
 .contact-textarea {
-  @apply w-full bg-transparent border-b-2 border-border pb-3 pt-1 text-foreground text-sm
-    placeholder:text-muted-foreground/50
-    focus:border-accent focus:outline-none
-    transition-colors duration-300 resize-none min-h-[100px];
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.8rem;
+  color: #222;
+  outline: none;
+  transition: border-color 0.2s;
+  border-radius: 0;
+  resize: none;
+  min-height: 80px;
+  letter-spacing: 0.01em;
+}
+
+.contact-textarea::placeholder {
+  color: #bbb;
+}
+
+.contact-textarea:focus {
+  border-color: #222;
 }
 
 .contact-select {
-  @apply w-full bg-transparent border-b-2 border-border pb-3 pt-1 text-foreground text-sm
-    focus:border-accent focus:outline-none
-    transition-colors duration-300 appearance-none cursor-pointer;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.8rem;
+  color: #222;
+  outline: none;
+  transition: border-color 0.2s;
+  border-radius: 0;
+  appearance: none;
+  cursor: pointer;
+}
+
+.contact-select:focus {
+  border-color: #222;
 }
 
 .contact-select option {
-  @apply bg-background text-foreground;
+  background: #fff;
+  color: #222;
 }
 
-/* Error state */
+/* ── Error State ── */
 .contact-input-error {
-  @apply border-red-500;
+  border-color: #c0392b;
 }
 
 .contact-error-text {
-  @apply text-xs text-red-600 mt-1;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.65rem;
+  color: #c0392b;
+  margin-top: 0.35rem;
 }
 
-/* ── Submit Button ───────────────────────────────── */
+.contact-error-summary {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5c3c0;
+  background: #fdf5f4;
+}
+
+.contact-error-summary-title {
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #8b2920;
+  margin-bottom: 0.25rem;
+}
+
+.contact-error-summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-error-summary-list li {
+  font-size: 0.65rem;
+  margin-top: 0.15rem;
+}
+
+.contact-error-summary-list a {
+  color: #c0392b;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.contact-error-summary-list a:hover {
+  color: #8b2920;
+}
+
+/* ── Submit Button ── */
 .contact-submit-btn {
-  @apply w-full sm:w-auto bg-primary text-primary-foreground px-10 py-4 text-sm font-semibold
-    tracking-wider uppercase rounded-md
-    hover:bg-primary/90 active:scale-[0.98]
-    transition-all duration-300 cursor-pointer
-    disabled:opacity-50 disabled:cursor-not-allowed
-    flex items-center justify-center gap-3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2.5rem;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start;
 }
 
-/* ── Success Message ─────────────────────────────── */
+.contact-submit-btn:hover {
+  background: #000;
+}
+
+.contact-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.contact-submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Success ── */
 .contact-success {
-  @apply bg-accent/10 border border-accent/30 rounded-xl p-8 text-center;
+  padding: 3rem 0;
+  text-align: left;
 }
 
 .contact-success-icon {
-  @apply w-16 h-16 mx-auto mb-4 rounded-full bg-accent/20 flex items-center justify-center text-accent;
+  width: 24px;
+  height: 24px;
+  color: #222;
+  margin-bottom: 1rem;
 }
 
 .contact-success h3 {
-  @apply text-2xl font-serif text-primary mb-2;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 0.5rem;
 }
 
 .contact-success p {
-  @apply text-sm text-muted-foreground leading-relaxed;
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.8rem;
+  color: #999;
+  line-height: 1.5;
 }
 
-/* ── Contact Info Bar ────────────────────────────── */
+/* ── Contact Info Bar ── */
 .contact-info-bar {
-  @apply mt-12 pt-8 border-t border-border grid grid-cols-1 sm:grid-cols-3 gap-6;
+  margin-top: 3rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid #e5e5e5;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
-.contact-info-item {
-  @apply flex items-start gap-3;
+.contact-info-item h4 {
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #222;
+  margin-bottom: 0.3rem;
 }
 
-.contact-info-icon {
-  @apply w-10 h-10 rounded-full bg-muted flex items-center justify-center text-primary shrink-0;
+.contact-info-item p {
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 0.72rem;
+  color: #999;
+  line-height: 1.5;
 }
 
-.contact-info-text h4 {
-  @apply text-sm font-semibold text-primary;
-}
-
-.contact-info-text p {
-  @apply text-xs text-muted-foreground mt-0.5;
-}
-
-/* ── Loading Spinner ─────────────────────────────── */
+/* ── Spinner ── */
 @keyframes contact-spin {
   to { transform: rotate(360deg); }
 }
 
 .contact-spinner {
-  @apply w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
   animation: contact-spin 0.6s linear infinite;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .contact-info-bar {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }

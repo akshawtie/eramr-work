@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Send, CheckCircle, Loader } from 'lucide-react';
+import { Send, CheckCircle } from 'lucide-react';
 import './Contact.css';
 
 const INQUIRY_TYPES = [
@@ -117,52 +117,39 @@ export default function Contact() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.6 }}
         className="contact-image-panel"
       >
         <img
           src="/contact-hero.jpg"
-          alt="Elegant artisanal living room with handcrafted furniture"
+          alt="Handcrafted metalwork in workshop"
           loading="eager"
         />
         <div className="contact-image-overlay" />
-        <div className="contact-image-text">
-          <h2>Let's Create<br />Something Beautiful</h2>
-          <p>Every great space begins with a conversation.</p>
-        </div>
       </motion.div>
 
       {/* Right Form Panel */}
       <motion.div
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, delay: 0.15 }}
         className="contact-form-panel"
       >
         <div className="contact-form-wrapper">
           {status === 'success' ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4 }}
-              className="contact-success"
-            >
-              <div className="contact-success-icon">
-                <CheckCircle className="w-8 h-8" />
-              </div>
-              <h3>Inquiry Sent Successfully</h3>
+            <div className="contact-success">
+              <CheckCircle className="contact-success-icon" />
+              <h3>Thank you</h3>
               <p>
-                Thank you for reaching out. Our team will review your inquiry
-                and get back to you within 24 hours.
+                We've received your inquiry and will respond within 24 hours.
               </p>
-            </motion.div>
+            </div>
           ) : (
             <>
               <div className="contact-form-header">
-                <h1>Get in Touch</h1>
+                <h1>Contact Us</h1>
                 <p>
-                  Have a question about our collections or need a bespoke piece?
-                  Fill out the form and our team will connect with you shortly.
+                  For trade inquiries, custom orders, or product questions.
                 </p>
               </div>
 
@@ -171,21 +158,16 @@ export default function Contact() {
                 <div
                   role="alert"
                   tabIndex={-1}
-                  className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg"
+                  className="contact-error-summary"
                   aria-labelledby="error-summary-title"
                 >
-                  <p id="error-summary-title" className="text-sm font-medium text-red-800">
+                  <p id="error-summary-title" className="contact-error-summary-title">
                     Please fix the following:
                   </p>
-                  <ul className="mt-1 text-xs text-red-600 list-disc list-inside">
+                  <ul className="contact-error-summary-list">
                     {Object.entries(errors).map(([field, msg]) => (
                       <li key={field}>
-                        <a
-                          href={`#contact-${field}`}
-                          className="underline hover:text-red-800"
-                        >
-                          {msg}
-                        </a>
+                        <a href={`#contact-${field}`}>{msg}</a>
                       </li>
                     ))}
                   </ul>
@@ -200,13 +182,13 @@ export default function Contact() {
                 <div className="contact-form-row">
                   <div className="contact-field-group">
                     <label htmlFor="contact-name" className="contact-label">
-                      Full Name
+                      Name
                     </label>
                     <input
                       id="contact-name"
                       name="name"
                       type="text"
-                      placeholder="John Doe"
+                      placeholder="Full name"
                       value={formData.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -223,13 +205,13 @@ export default function Contact() {
 
                   <div className="contact-field-group">
                     <label htmlFor="contact-email" className="contact-label">
-                      Email Address
+                      Email
                     </label>
                     <input
                       id="contact-email"
                       name="email"
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="you@company.com"
                       value={formData.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -248,7 +230,7 @@ export default function Contact() {
                 <div className="contact-form-row">
                   <div className="contact-field-group">
                     <label htmlFor="contact-phone" className="contact-label">
-                      Phone Number
+                      Phone
                     </label>
                     <input
                       id="contact-phone"
@@ -283,7 +265,7 @@ export default function Contact() {
                       aria-invalid={!!errors.inquiryType}
                       className={`contact-select ${errors.inquiryType ? 'contact-input-error' : ''}`}
                     >
-                      <option value="" disabled>Select type…</option>
+                      <option value="" disabled>Select…</option>
                       {INQUIRY_TYPES.map((type) => (
                         <option key={type} value={type}>{type}</option>
                       ))}
@@ -298,13 +280,13 @@ export default function Contact() {
 
                 <div className="contact-field-group">
                   <label htmlFor="contact-message" className="contact-label">
-                    Your Message
+                    Message
                   </label>
                   <textarea
                     id="contact-message"
                     name="message"
                     rows={4}
-                    placeholder="Tell us about your vision — the piece you're looking for, dimensions, materials, or any specific requirements…"
+                    placeholder="Product details, dimensions, quantities, or any specific requirements."
                     value={formData.message}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -343,31 +325,16 @@ export default function Contact() {
           {/* Contact Info Bar */}
           <div className="contact-info-bar">
             <div className="contact-info-item">
-              <div className="contact-info-icon">
-                <MapPin className="w-4 h-4" />
-              </div>
-              <div className="contact-info-text">
-                <h4>Visit Us</h4>
-                <p>Your showroom address here</p>
-              </div>
+              <h4>Visit</h4>
+              <p>Your showroom address here</p>
             </div>
             <div className="contact-info-item">
-              <div className="contact-info-icon">
-                <Phone className="w-4 h-4" />
-              </div>
-              <div className="contact-info-text">
-                <h4>Call Us</h4>
-                <p>+91 XXXXX XXXXX</p>
-              </div>
+              <h4>Call</h4>
+              <p>+91 XXXXX XXXXX</p>
             </div>
             <div className="contact-info-item">
-              <div className="contact-info-icon">
-                <Mail className="w-4 h-4" />
-              </div>
-              <div className="contact-info-text">
-                <h4>Email</h4>
-                <p>hello@arrgroups.com</p>
-              </div>
+              <h4>Email</h4>
+              <p>hello@arrgroups.com</p>
             </div>
           </div>
         </div>
