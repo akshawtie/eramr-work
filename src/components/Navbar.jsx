@@ -94,6 +94,9 @@ export default function Navbar() {
                 <Link to="/catalogue/trays" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Trays collection
                 </Link>
+                <Link to="/catalogue/iron-planter-stands" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  Iron planter stands
+                </Link>
                 <a href="#" className="hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                   Our Heritage
                 </a>

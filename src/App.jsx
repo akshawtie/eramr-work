@@ -8,6 +8,8 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import Contact from './components/Contact';
 import TraysPage from './components/TraysPage';
+import PlanterStandsPage from './components/PlanterStandsPage';
+import PlanterStandDetailPage from './components/PlanterStandDetailPage';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           } />
           <Route path="/catalogue" element={<Catalogue />} />
           <Route path="/catalogue/trays" element={<TraysPage />} />
+          <Route path="/catalogue/iron-planter-stands" element={<PlanterStandsPage />} />
+          <Route path="/catalogue/iron-planter-stands/:productId" element={<PlanterStandDetailPage />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>

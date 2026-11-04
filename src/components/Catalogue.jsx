@@ -172,6 +172,12 @@ export default function Catalogue() {
                 <ChevronRight className="w-4 h-4" />
               </Link>
             )}
+            {selectedCategory === 'cane-metal' && (
+              <Link to="/catalogue/iron-planter-stands" className="trays-collection-link">
+                Explore iron planter stands
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            )}
           </div>
         )}
 
