@@ -62,27 +62,25 @@ export default function TraysPage() {
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.4, delay: (index % 4) * 0.07 }}
             >
-              <div className="trays-card-image-wrap">
-                <img
-                  src={product.image}
-                  alt={`${product.name} design ${product.sourceCode}`}
-                  loading="lazy"
-                />
-                <span className="trays-card-number">{String(index + 1).padStart(2, '0')}</span>
-              </div>
-              <div className="trays-card-info">
-                <div>
-                  <p>TRAY DESIGN</p>
-                  <h3>{product.sourceCode}</h3>
+              <Link to={`/catalogue/product/${product.id}`} className="trays-card-open">
+                <div className="trays-card-image-wrap">
+                  <img
+                    src={product.image}
+                    alt={`${product.name} design ${product.sourceCode}`}
+                    loading="lazy"
+                  />
+                  <span className="trays-card-number">{String(index + 1).padStart(2, '0')}</span>
                 </div>
-                <Link
-                  to="/contact"
-                  className="trays-card-link"
-                  aria-label={`Enquire about tray ${product.sourceCode}`}
-                >
-                  <ArrowUpRight aria-hidden="true" size={19} />
-                </Link>
-              </div>
+                <div className="trays-card-info">
+                  <div>
+                    <p>TRAY DESIGN</p>
+                    <h3>{product.sourceCode}</h3>
+                  </div>
+                  <span className="trays-card-link" aria-hidden="true">
+                    <ArrowUpRight aria-hidden="true" size={19} />
+                  </span>
+                </div>
+              </Link>
             </motion.article>
           ))}
         </div>

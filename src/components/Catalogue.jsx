@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Search, 
   X, 
@@ -17,8 +17,6 @@ export default function Catalogue() {
   const [selectedSubCategory, setSelectedSubCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-
   const sectionRef = useRef(null);
 
   // Get available sub-categories for current category
@@ -115,9 +113,11 @@ export default function Catalogue() {
         
         {/* ================= CATALOGUE HEADER ================= */}
         <div className="catalogue-header">
-          <h2 className="catalogue-title">Catalogue</h2>
+          <p className="catalogue-eyebrow">ARR GROUPS · THOUGHTFULLY CURATED</p>
+          <h2 className="catalogue-title">Explore the catalogue</h2>
           <p className="catalogue-subtitle">
-            {products.length} products
+            Discover pieces for considered living
+            <span className="catalogue-total-count">{products.length} designs</span>
           </p>
         </div>
 
@@ -218,36 +218,36 @@ export default function Catalogue() {
           <div className="catalogue-grid">
             {currentProducts.map((product, idx) => {
               return (
-                <motion.article 
+                <motion.article
                   key={product.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: (idx % 12) * 0.03 }}
                   className="product-card"
-                  onClick={() => setSelectedProduct(product)}
                 >
-                  <div className="product-image-container">
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      loading="lazy"
-                      className="product-image"
-                    />
-                    <div className="product-code-badge">
-                      {product.sourceCode}
-                    </div>
-                  </div>
-
-                  {/* Product Details */}
-                  <div className="product-details">
-                    <div className="product-category-row">
-                      <span className="product-sub-label">{product.subCategoryLabel}</span>
+                  <Link to={`/catalogue/product/${product.id}`} className="product-card-link">
+                    <div className="product-image-container">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        loading="lazy"
+                        className="product-image"
+                      />
+                      <div className="product-code-badge">
+                        {product.sourceCode}
+                      </div>
                     </div>
 
-                    <h3 className="product-name" title={product.name}>
-                      {product.name}
-                    </h3>
-                  </div>
+                    <div className="product-details">
+                      <div className="product-category-row">
+                        <span className="product-sub-label">{product.subCategoryLabel}</span>
+                      </div>
+
+                      <h3 className="product-name" title={product.name}>
+                        {product.name}
+                      </h3>
+                    </div>
+                  </Link>
                 </motion.article>
               );
             })}
@@ -320,52 +320,6 @@ export default function Catalogue() {
         )}
 
       </div>
-
-      {/* ================= PRODUCT LIGHTBOX MODAL ================= */}
-      <AnimatePresence>
-        {selectedProduct && (
-          <motion.div
-            className="product-lightbox-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedProduct(null)}
-          >
-            <motion.div
-              className="product-lightbox"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.25 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button 
-                className="lightbox-close-btn" 
-                onClick={() => setSelectedProduct(null)}
-                aria-label="Close"
-              >
-                <X className="w-4 h-4" />
-              </button>
-              <div className="lightbox-image-wrapper">
-                <img 
-                  src={selectedProduct.image} 
-                  alt={selectedProduct.name} 
-                  className="lightbox-image"
-                />
-              </div>
-              <div className="lightbox-info">
-                <span className="lightbox-code">{selectedProduct.sourceCode}</span>
-                <h3 className="lightbox-name">{selectedProduct.name}</h3>
-                <div className="lightbox-meta">
-                  <span className="lightbox-category">{selectedProduct.categoryLabel}</span>
-                  <span className="lightbox-separator">/</span>
-                  <span className="lightbox-subcategory">{selectedProduct.subCategoryLabel}</span>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
     </section>
   );

@@ -62,32 +62,25 @@ export default function PlanterStandsPage() {
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.4, delay: (index % 4) * 0.07 }}
             >
-              <div className="trays-card-image-wrap">
-                <Link
-                  to={`/catalogue/iron-planter-stands/${product.id}`}
-                  aria-label={`View iron planter stand ${product.sourceCode}`}
-                >
+              <Link to={`/catalogue/product/${product.id}`} className="trays-card-open" aria-label={`View iron planter stand ${product.sourceCode}`}>
+                <div className="trays-card-image-wrap">
                   <img
                     src={product.image}
                     alt={`${product.name} design ${product.sourceCode}`}
                     loading="lazy"
                   />
-                </Link>
-                <span className="trays-card-number">{String(index + 1).padStart(2, '0')}</span>
-              </div>
-              <div className="trays-card-info">
-                <Link to={`/catalogue/iron-planter-stands/${product.id}`} className="trays-card-product-link">
-                  <p>IRON PLANTER STAND</p>
-                  <h3>{product.sourceCode}</h3>
-                </Link>
-                <Link
-                  to={`/catalogue/iron-planter-stands/${product.id}`}
-                  className="trays-card-link"
-                  aria-label={`View iron planter stand ${product.sourceCode}`}
-                >
-                  <ArrowUpRight aria-hidden="true" size={19} />
-                </Link>
-              </div>
+                  <span className="trays-card-number">{String(index + 1).padStart(2, '0')}</span>
+                </div>
+                <div className="trays-card-info">
+                  <div className="trays-card-product-link">
+                    <p>IRON PLANTER STAND</p>
+                    <h3>{product.sourceCode}</h3>
+                  </div>
+                  <span className="trays-card-link" aria-hidden="true">
+                    <ArrowUpRight aria-hidden="true" size={19} />
+                  </span>
+                </div>
+              </Link>
             </motion.article>
           ))}
         </div>
